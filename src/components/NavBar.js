@@ -12,7 +12,7 @@ function Nav() {
         </h1>
         <ul>
           <li>
-            <NavLink to="/bookstore/" rel="noopener noreferrer">
+            <NavLink to="/" rel="noopener noreferrer">
               Books
             </NavLink>
           </li>
