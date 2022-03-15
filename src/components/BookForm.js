@@ -1,29 +1,54 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { addBook } from '../redux/books/books';
 
-function BookForm() {
+const categories = ['Action', 'Science-fiction', 'Business', 'Romance'];
+
+const BookForm = () => {
+  const books = useSelector((state) => state.booksReducer);
+  const dispatch = useDispatch();
+  const submitBookToStore = (e) => {
+    e.preventDefault();
+    if (e.target.parentNode.lastChild[0].value && e.target.parentNode.lastChild[1].value
+      && e.target.parentNode.lastChild[2].value) {
+      const newBook = {
+        id: uuidv4(),
+        title: e.target.parentNode.lastChild[0].value,
+        author: e.target.parentNode.lastChild[1].value,
+        category: e.target.parentNode.lastChild[2].value,
+      };
+      dispatch(addBook(newBook));
+      e.target.parentNode.lastChild[0].value = '';
+      e.target.parentNode.lastChild[1].value = '';
+    }
+  };
+
   return (
-    <div>
-      <form className="add-new">
-        <h4>Add new book</h4>
-        <label htmlFor="Title">
-          <input id="Title" placeholder="Title" required />
-        </label>
-        <label htmlFor="author">
-          <input id="author" placeholder="Author" />
-        </label>
-        <label htmlFor="genre">
-          <select className="book-selection" id="genre" required>
-            <option value="Unknown">Genre</option>
-            <option value="Leadership">Leadership</option>
-            <option value="Science-Fiction">Science-Fiction</option>
-            <option value="Business">Business</option>
-            <option value="Romance">Romance</option>
-          </select>
-        </label>
-        <button type="submit" className="add-book">Add</button>
+    <>
+      <h3 className="add-new">Add newbook</h3>
+      <form className="form-container" onSubmit={submitBookToStore}>
+        <input
+          type="text"
+          placeholder="Book title"
+          name="title"
+          value={books.title}
+        />
+        <input
+          type="text"
+          placeholder="Book author"
+          name="author"
+          value={books.author}
+        />
+        <select placeholder="Category" name="category">
+          {categories.map((category) => (
+            <option key={uuidv4()} value={category}>{category}</option>
+          ))}
+        </select>
+        <input type="submit" className="submit" value="add-book" />
       </form>
-    </div>
+    </>
   );
-}
+};
 
 export default BookForm;
