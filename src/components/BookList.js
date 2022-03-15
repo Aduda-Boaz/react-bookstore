@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const BookList = (props) => {
-  const { 
-    title="The Hunger Game",
-    author="Suzzane Collins",
-    categories="Action"
+  const {
+    title = 'The Hunger Game',
+    author = 'Suzzane Collins',
+    categories = 'Action',
   } = props;
 
   return (
@@ -35,6 +36,12 @@ const BookList = (props) => {
       </div>
     </div>
   );
+};
+
+BookList.propTypes = {
+  title: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  categories: PropTypes.string.isRequired,
 };
 
 export default BookList;
