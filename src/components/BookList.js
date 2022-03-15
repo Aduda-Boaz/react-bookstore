@@ -2,13 +2,19 @@ import React from 'react';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-function BookList() {
+const BookList = (props) => {
+  const { 
+    title="The Hunger Game",
+    author="Suzzane Collins",
+    categories="Action"
+  } = props;
+
   return (
     <div className="List-container">
       <div className="BookDetils">
-        <p className="Genre">Category</p>
-        <p className="BookTitle">Title</p>
-        <p className="BookAuthor">Author</p>
+        <h4 className="Genre">{categories}</h4>
+        <h2 className="BookTitle">{title}</h2>
+        <p className="BookAuthor">{author}</p>
         <button type="button" className="btn">Comment</button>
         <button type="button" className="btn">Remove</button>
         <button type="button" className="btn">Edit</button>
@@ -29,6 +35,6 @@ function BookList() {
       </div>
     </div>
   );
-}
+};
 
 export default BookList;
