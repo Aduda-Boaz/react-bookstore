@@ -14,7 +14,7 @@ ReactDOM.render(
       <BrowserRouter>
         <Nav />
         <Routes>
-          <Route path="bookstore" element={<BookDisplay />} />
+          <Route path="/" element={<BookDisplay />} />
           <Route path="categories" element={<BookCategories />} />
         </Routes>
       </BrowserRouter>

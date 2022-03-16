@@ -13,13 +13,15 @@ const BookList = ({
 }) => {
   const dispatch = useDispatch();
   return (
-    <li id={id}>
-      <h4>{category}</h4>
-      <h3>{title}</h3>
-      <h4>{author}</h4>
-      <button type="button" className="btn">Comment</button>
-      <button type="button" onClick={(e) => { dispatch(removeBook(e.target.parentNode.id)); }}>Remove</button>
-      <button type="button" className="btn">Edit</button>
+    <li className="List-container" id={id}>
+      <div className="Bookdetails">
+        <h4>{category}</h4>
+        <h3>{title}</h3>
+        <p>{author}</p>
+        <button type="button" className="btn">Comment</button>
+        <button type="button" className="btn" onClick={(e) => { dispatch(removeBook(e.target.parentNode.id)); }}>Remove</button>
+        <button type="button" className="btn">Edit</button>
+      </div>
       <div className="Scale">
         <div className="Graph">
           <div className="progressBar" style={{ width: 50, height: 50 }}>
