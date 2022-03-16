@@ -1,53 +1,56 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import { addBook } from '../redux/books/books';
+import { sendBook } from '../redux/books/books';
 
-const categories = ['Action', 'Science-fiction', 'Business', 'Romance'];
+const category = ['Fantasy', 'Action', 'Sci-Fi', 'Romance', 'Biography'];
 
 const BookForm = () => {
-  const books = useSelector((state) => state.booksReducer);
-  const dispatch = useDispatch();
-  const submitBookToStore = (e) => {
-    e.preventDefault();
-    if (e.target.parentNode.lastChild[0].value && e.target.parentNode.lastChild[1].value
-      && e.target.parentNode.lastChild[2].value) {
-      const newBook = {
-        id: uuidv4(),
-        title: e.target.parentNode.lastChild[0].value,
-        author: e.target.parentNode.lastChild[1].value,
-        category: e.target.parentNode.lastChild[2].value,
-      };
-      dispatch(addBook(newBook));
-      e.target.parentNode.lastChild[0].value = '';
-      e.target.parentNode.lastChild[1].value = '';
-    }
+  const initialState = {
+    title: '', author: '', categories: '',
   };
 
-  return (
-    <>
-      <h3 className="add-new">Add newbook</h3>
-      <form className="form-container" onSubmit={submitBookToStore}>
-        <input
-          type="text"
-          placeholder="Book title"
-          name="title"
-          value={books.title}
-        />
-        <input
-          type="text"
-          placeholder="Book author"
-          name="author"
-          value={books.author}
-        />
-        <select placeholder="Category" name="category">
-          {categories.map((category) => (
-            <option key={uuidv4()} value={category}>{category}</option>
-          ))}
+  const [formState, setFormState] = useState(initialState);
+
+  const handleChange = () => {
+    setFormState({
+      ...formState,
+      [e.target.name]: [e.target.value],
+    });
+  };
+
+  const dispatch = useDispatch();
+
+  const submitToStore = (event) => {
+    event.preventDefault();
+    document.querySelector('form').reset();
+
+    const newBook = {
+      id: uuidv4(),
+      title: formState.title[0],
+      author: formState.author[0],
+      categories: formState.categories[0],
+    };
+
+    dispatch(sendBook(newBook));
+  }
+    return (
+      <form onSubmit={submitToStore} className="form-container">
+      <h1>ADD NEW BOOK</h1>
+      <div className="form-inputs">
+        <input name="title" type="text" onChange={handleChange} placeholder="Book Title" required />
+        <input name="author" type="text" onChange={handleChange} placeholder="Book Author" required />
+        <select name="category" id="categories" onChange={handleChange} required>
+          <option value="">Categories</option>
+          {
+            category.map((categories) => (
+              <option key={categories} value={categories}>{categories}</option>
+            ))
+          }
         </select>
-        <input type="submit" className="submit" value="add-book" />
-      </form>
-    </>
+        <button type="submit">ADD BOOK</button>
+      </div>
+    </form>
   );
 };
 

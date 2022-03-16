@@ -5,21 +5,25 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import { removeBook } from '../redux/books/books';
 import 'react-circular-progressbar/dist/styles.css';
 
-const BookList = ({
-  id,
-  title,
-  author,
-  category,
-}) => {
+const BookList = (props) => {
   const dispatch = useDispatch();
+
+  const {
+    id, title, author, categories,
+  } = props;
+
+  const handleRemoveBook = () => {
+    dispatch(removeBook(id));
+  };
+
   return (
     <li className="List-container" id={id}>
       <div className="Bookdetails">
-        <h4>{category}</h4>
+        <h4>{categories}</h4>
         <h3>{title}</h3>
         <p>{author}</p>
         <button type="button" className="btn">Comment</button>
-        <button type="button" className="btn" onClick={(e) => { dispatch(removeBook(e.target.parentNode.id)); }}>Remove</button>
+        <button type="button" onClick={handleRemoveBook}>Remove</button>
         <button type="button" className="btn">Edit</button>
       </div>
       <div className="Scale">
