@@ -36,7 +36,7 @@ const BookList = ({
         <p>Chapter 17</p>
         <button type="button" className="progressBtn btn">Update Book</button>
       </div>
-    </li>    
+    </li>
   );
 };
 
