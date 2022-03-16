@@ -1,23 +1,25 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { CircularProgressbar } from 'react-circular-progressbar';
+import { removeBook } from '../redux/books/books';
 import 'react-circular-progressbar/dist/styles.css';
 
-const BookList = (props) => {
-  const {
-    title = 'The Hunger Game',
-    author = 'Suzzane Collins',
-    categories = 'Action',
-  } = props;
-
+const BookList = ({
+  id,
+  title,
+  author,
+  category,
+}) => {
+  const dispatch = useDispatch();
   return (
-    <div className="List-container">
-      <div className="BookDetils">
-        <h4 className="Genre">{categories}</h4>
-        <h2 className="BookTitle">{title}</h2>
-        <p className="BookAuthor">{author}</p>
+    <li className="List-container" id={id}>
+      <div className="Bookdetails">
+        <h4>{category}</h4>
+        <h3>{title}</h3>
+        <p>{author}</p>
         <button type="button" className="btn">Comment</button>
-        <button type="button" className="btn">Remove</button>
+        <button type="button" className="btn" onClick={(e) => { dispatch(removeBook(e.target.parentNode.id)); }}>Remove</button>
         <button type="button" className="btn">Edit</button>
       </div>
       <div className="Scale">
@@ -34,14 +36,15 @@ const BookList = (props) => {
         <p>Chapter 17</p>
         <button type="button" className="progressBtn btn">Update Book</button>
       </div>
-    </div>
+    </li>
   );
 };
 
 BookList.propTypes = {
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
-  categories: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default BookList;
