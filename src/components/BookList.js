@@ -1,42 +1,38 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import { removeBook } from '../redux/books/books';
 import 'react-circular-progressbar/dist/styles.css';
 
 const BookList = ({
-  id,
-  title,
-  author,
-  category,
+  title, category, id, author,
 }) => {
   const dispatch = useDispatch();
-  const percentage = 67;
+  const percentage = 70;
   return (
     <li>
       <div>
-        <h4 className="category">{category}</h4>
-        <h3 className="book-title">{title}</h3>
-        <span className="book-author">{author}</span>
-        <button type="button" className="btn">Comments</button>
-        <button type="btn active" onClick={(e) => { dispatch(removeBook(e.target.parentNode.id)); }}>Remove</button>
-        <button type="button" className="btn">Edit</button>
+        <h3 className="category">{category}</h3>
+        <h2 className="title">{title}</h2>
+        <span className="author">{author}</span>
+        <button type="button" className="button">Comments</button>
+        <button type="button" className="button active" onClick={() => { dispatch(removeBook(id)); }}>Remove</button>
+        <button type="button" className="button">Edit</button>
       </div>
-      <div>
-        <div className="percent-section">
-          <div style={{ width: 60, height: 60 }}>
+      <div className="section2">
+        <div className="oval">
+          <div style={{ width: 65, height: 65 }}>
             <CircularProgressbar value={percentage} />
           </div>
           <div>
-            <h3 className="percentage">67%</h3>
-            <span className="bk-completed">Completed</span>
+            <h2 className="percent">67%</h2>
+            <span className="completed">Completed</span>
           </div>
         </div>
-        <div className="progress-section">
-        <p className="current-chapt">Current Chapter</p>
+        <div className="chapter">
+          <p className="current-chapter">Current Chapter</p>
           <p className="chapter-number">Chapter 17</p>
-          <button type="button" className="update-btn submit">Chapter Progress</button>
+          <button type="button" className="update-btn submit">Update Progress</button>
         </div>
       </div>
     </li>

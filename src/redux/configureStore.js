@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { combineReducers, createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -8,10 +8,10 @@ const reducer = combineReducers({
   booksReducer,
 });
 
-const store = createStore(
+const Store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunk, logger)),
 );
-store.dispatch(fetchBooks());
+Store.dispatch(fetchBooks());
 
-export default store;
+export default Store;
