@@ -1,30 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { CgProfile } from 'react-icons/cg';
 
-function Nav() {
-  return (
-    <header className="Navbar">
-      <nav className="Nav-header">
-        <h1 className="Nav-logo">
-          <NavLink to="/bookstore/" rel="noopener noreferrer">
-            Bookstore CMS
-          </NavLink>
-        </h1>
-        <ul>
-          <li>
-            <NavLink to="/" rel="noopener noreferrer">
-              Books
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/categories/" rel="noopener noreferrer">
-              Categories
-            </NavLink>
-          </li>
-        </ul>
-      </nav>
-    </header>
-  );
-}
+const Nav = () => (
+  <header className="Navbar">
+    <Link to="/">Bookstore CMS</Link>
+    <Link to="/">Books</Link>
+    <Link to="/Categories">Categories</Link>
+    <div className="icon"><CgProfile size={35} /></div>
+  </header>
+);
 
 export default Nav;
